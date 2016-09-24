@@ -8,6 +8,8 @@ let loadState = {
     game.load.image('levelBackground', 'assets/images/level-background.png')
     game.load.image('x', 'assets/images/x.png')
     game.load.image('o', 'assets/images/o.png')
+
+    game.load.image('cell', 'assets/images/cell.png')
     // load game audio assets
     // game.load.audio('bgMusic', ['assets/audio/music.mp3', 'assets/audio/music.ogg'])
     // game.load.audio('paddleTouch', ['assets/audio/paddle.mp3', 'assets/audio/paddle.ogg'])
