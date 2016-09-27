@@ -1,72 +1,15 @@
 /* globals game */
 
-// let playState = {
-//   create () {
-//     // set game background image
-//     this.levelBackground = game.add.sprite(0, 0, 'levelBackground')
-//
-//     // mouse events
-//     game.input.mouse.capture = true
-//   },
-//   update () {
-//     if (game.input.activePointer.leftButton.isDown) {
-//       // first row, first cell
-//       if (game.input.mousePointer.x < 200 && game.input.mousePointer.y < 200) {
-//         this.createX(100, 100)
-//       }
-//
-//       // first row, second cell
-//       if ((game.input.mousePointer.x > 200 && game.input.mousePointer.x < 400) && game.input.mousePointer.y < 200) {
-//         this.createX(270, 100)
-//       }
-//
-//       // first row, second cell
-//       if ((game.input.mousePointer.x > 400 && game.input.mousePointer.x < 600) && game.input.mousePointer.y < 200) {
-//         this.createX(470, 100)
-//       }
-//
-//       // second row, first cell
-//       if ((game.input.mousePointer.x < 200) && (game.input.mousePointer.y > 200 && game.input.mousePointer.y < 400)) {
-//         this.createX(100, 260)
-//       }
-//
-//       // second row, second cell
-//       if ((game.input.mousePointer.x > 200 && game.input.mousePointer.x < 400) && (game.input.mousePointer.y > 200 && game.input.mousePointer.y < 400)) {
-//         this.createX(260, 270)
-//       }
-//
-//       // second row, third cell
-//       if ((game.input.mousePointer.x > 400 && game.input.mousePointer.x < 600) && (game.input.mousePointer.y > 200 && game.input.mousePointer.y < 400)) {
-//         this.createX(440, 275)
-//       }
-//
-//       // third row, third cell
-//       if ((game.input.mousePointer.x < 200) && (game.input.mousePointer.y > 400 && game.input.mousePointer.y < 600)) {
-//         this.createX(100, 470)
-//       }
-//
-//       // third row, second cell
-//       if ((game.input.mousePointer.x > 200 && game.input.mousePointer.x < 400) && (game.input.mousePointer.y > 400 && game.input.mousePointer.y < 600)) {
-//         this.createX(260, 455)
-//       }
-//
-//       // third row, third cell
-//       if ((game.input.mousePointer.x > 400 && game.input.mousePointer.x < 600) && (game.input.mousePointer.y > 400 && game.input.mousePointer.y < 600)) {
-//         this.createX(460, 475)
-//       }
-//     }
-//   },
-//   // x and y coordinates of mouse pointer
-//   createX (x, y) {
-//     this.x = game.add.sprite(x, y, 'x')
-//     this.x.anchor.setTo(0.5, 0.5)
-//   }
-// }
-
 let playState = {
   create () {
     // set game background image
     this.levelBackground = game.add.sprite(0, 0, 'levelBackground')
+
+    // if x <= 5, don't call setO function
+    this.x = 0
+
+    // when AI set 'O', player can't set 'X'
+    this.playerCanSetX = true
 
     this.cellWidth = 186
     this.cellHeight = 186
@@ -87,18 +30,71 @@ let playState = {
       }
     }
   },
-  update () {},
+  // player set X sprite
   setX () {
     // Figure out what position on the grid that translates to
-    let hoverPosX = Math.floor(game.input.x / this.cellWidth)
-    let hoverPosY = Math.floor(game.input.y / this.cellHeight)
+    let cellIndexX = Math.floor(game.input.x / this.cellWidth)
+    let cellIndexY = Math.floor(game.input.y / this.cellHeight)
 
-    this.template[hoverPosX][hoverPosY] = 'x'
+    if (this.playerCanSetX) {
+      this.template[cellIndexX][cellIndexY] = 'x'
+      game.add.image(cellIndexX * this.cellWidth, cellIndexY * this.cellHeight, 'x')
 
-    let spriteX = game.add.image(hoverPosX * this.cellWidth, hoverPosY * this.cellHeight, 'x')
+      this.x += 1
 
-    console.log(this.template)
+      // AI set 'O'
+      if (this.x <= 4) {
+        this.setO()
+      }
+    }
+  },
+  // very stupid AI
+  setO () {
+    this.playerCanSetX = false
 
-    return spriteX
+    var column
+    var row
+
+    function randNum () {
+      column = Math.floor(Math.random() * 3)
+      row = Math.floor(Math.random() * 3)
+    }
+
+    randNum()
+
+    while (this.template[column][row]) {
+      randNum()
+    }
+
+    this.template[column][row] = 'o'
+    game.add.image(column * this.cellWidth, row * this.cellHeight, 'o')
+
+    this.playerCanSetX = true
+  },
+  // check who win
+  checkMatch () {
+    // check rows
+    // for (let i = 0; i <= 6; i = i + 3) {
+    //   if (B[i] !== "E" && B[i] === B[i + 1] && B[i + 1] == B[i + 2]) {
+    //     this.result = B[i] + "-won" // update the state result
+    //     return true
+    //   }
+    // }
+
+    // check columns
+    // for (let i = 0; i <= 2 ; i++) {
+    //   if (B[i] !== "E" && B[i] === B[i + 3] && B[i + 3] === B[i + 6]) {
+    //     this.result = B[i] + "-won" // update the state result
+    //     return true
+    //   }
+    // }
+
+    // check diagonals
+    // for (let i = 0, j = 4; i <= 2 ; i = i + 2, j = j - 2) {
+    //   if (B[i] !== "E" && B[i] == B[i + j] && B[i + j] === B[i + 2*j]) {
+    //     this.result = B[i] + "-won" // update the state result
+    //     return true
+    //   }
+    // }
   }
 }
