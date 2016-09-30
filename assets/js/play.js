@@ -36,11 +36,13 @@ let playState = {
     let cellIndexX = Math.floor(game.input.x / this.cellWidth)
     let cellIndexY = Math.floor(game.input.y / this.cellHeight)
 
-    if (this.playerCanSetX) {
-      this.template[cellIndexX][cellIndexY] = 'x'
+    if (this.playerCanSetX && !this.template[cellIndexY][cellIndexX]) {
+      this.template[cellIndexY][cellIndexX] = 'x'
       game.add.image(cellIndexX * this.cellWidth, cellIndexY * this.cellHeight, 'x')
 
       this.x += 1
+
+      this.checkMatch()
 
       // AI set 'O'
       if (this.x <= 4) {
@@ -62,39 +64,43 @@ let playState = {
 
     randNum()
 
-    while (this.template[column][row]) {
+    while (this.template[row][column]) {
       randNum()
     }
 
-    this.template[column][row] = 'o'
+    this.template[row][column] = 'o'
     game.add.image(column * this.cellWidth, row * this.cellHeight, 'o')
+
+    this.checkMatch()
 
     this.playerCanSetX = true
   },
   // check who win
   checkMatch () {
+    // I will use 'board' variable instead of 'this.template' because it's smaller
+    let board = this.template
+
     // check rows
-    // for (let i = 0; i <= 6; i = i + 3) {
-    //   if (B[i] !== "E" && B[i] === B[i + 1] && B[i + 1] == B[i + 2]) {
-    //     this.result = B[i] + "-won" // update the state result
-    //     return true
-    //   }
-    // }
+    for (let i = 0, j = 0; i <= 2; i++) {
+      if (board[i][j] && board[i][j] === board[i][j + 1] && board[i][j + 1] === board[i][j + 2]) {
+        board[i][j] === 'x' ? game.state.start('win') : game.state.start('lose')
+      }
+    }
 
     // check columns
-    // for (let i = 0; i <= 2 ; i++) {
-    //   if (B[i] !== "E" && B[i] === B[i + 3] && B[i + 3] === B[i + 6]) {
-    //     this.result = B[i] + "-won" // update the state result
-    //     return true
-    //   }
-    // }
+    for (let i = 0, j = 0; i <= 2; i++) {
+      if (board[j][i] && board[j][i] === board[j + 1][i] && board[j + 1][i] === board[j + 2][i]) {
+        board[j][i] === 'x' ? game.state.start('win') : game.state.start('lose')
+      }
+    }
 
     // check diagonals
-    // for (let i = 0, j = 4; i <= 2 ; i = i + 2, j = j - 2) {
-    //   if (B[i] !== "E" && B[i] == B[i + j] && B[i + j] === B[i + 2*j]) {
-    //     this.result = B[i] + "-won" // update the state result
-    //     return true
-    //   }
-    // }
+    if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+      board[0][0] === 'x' ? game.state.start('win') : game.state.start('lose')
+    } else if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+      board[0][2] === 'x' ? game.state.start('win') : game.state.start('lose')
+    }
+
+    // game.state.start('draw')
   }
 }
