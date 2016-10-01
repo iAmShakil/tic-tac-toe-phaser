@@ -1,4 +1,4 @@
-/* globals game, Phaser */
+/* globals game */
 
 let menuState = {
   create () {
@@ -13,15 +13,13 @@ let menuState = {
 
     // explain how to start the game
     let startGame = game.add.text(
-      game.world.centerX, 250, 'press enter to start',
+      game.world.centerX, 250, 'click to start',
       { font: '20px Arial', fill: '#ffffff' }
     )
     startGame.anchor.setTo(0.5, 0.5)
 
-    // create Phaser keyboard hotkey
-    let enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
-    // start game on press enter
-    enterKey.onDown.addOnce(this.startGame, this)
+    // start game on click
+    game.input.onDown.add(this.startGame, this)
   },
   startGame () {
     game.state.start('play')

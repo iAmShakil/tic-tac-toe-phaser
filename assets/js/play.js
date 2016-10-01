@@ -101,6 +101,9 @@ let playState = {
       board[0][2] === 'x' ? game.state.start('win') : game.state.start('lose')
     }
 
-    // game.state.start('draw')
+    // if draw, call draw game state
+    if (this.x === 5) {
+      game.state.start('draw')
+    }
   }
 }
