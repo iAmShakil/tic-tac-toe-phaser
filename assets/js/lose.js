@@ -6,7 +6,7 @@ let loseState = {
 
     // display won message
     let loseMessage = game.add.text(
-      game.world.centerX, 200, 'Loser, zou play like my dead cat!',
+      game.world.centerX, 200, 'Loser, you play like my dead cat!',
       { font: '50px Arial', fill: '#ffffff' }
     )
     loseMessage.anchor.setTo(0.5, 0.5)
