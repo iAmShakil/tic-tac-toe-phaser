@@ -5,7 +5,7 @@ let bootState = {
     if (!game.device.desktop) {
       game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
 
-      document.body.style.backgroundColor = '#3498db'
+      document.body.style.backgroundColor = '#ffffff'
 
       game.scale.minHeight = 186
       game.scale.minWidth = 186
