@@ -1,5 +1,7 @@
 /* globals game */
 
+'use strict'
+
 let drawState = {
   create () {
     game.stage.backgroundColor = '#000000'

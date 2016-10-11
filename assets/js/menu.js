@@ -1,5 +1,7 @@
 /* globals game */
 
+'use strict'
+
 let menuState = {
   create () {
     game.add.image(0, 0, 'background')

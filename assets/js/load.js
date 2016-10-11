@@ -1,5 +1,7 @@
 /* globals game */
 
+'use strict'
+
 let loadState = {
   preload () {
     // background for menu
@@ -14,10 +16,7 @@ let loadState = {
     game.load.image('cell', 'assets/images/cell.png')
 
     // load game audio assets
-    // game.load.audio('bgMusic', ['assets/audio/music.mp3', 'assets/audio/music.ogg'])
-    // game.load.audio('paddleTouch', ['assets/audio/paddle.mp3', 'assets/audio/paddle.ogg'])
-    // game.load.audio('brickDestroy', ['assets/audio/brick.mp3', 'assets/audio/brick.ogg'])
-    // game.load.audio('gameOver', ['assets/audio/dead.mp3', 'assets/audio/dead.ogg'])
+    // game.load.audio('audio', ['assets/audio/audio.mp3', 'assets/audio/audio.ogg'])
   },
   create () {
     game.state.start('menu')

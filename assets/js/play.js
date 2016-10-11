@@ -1,5 +1,7 @@
 /* globals game */
 
+'use strict'
+
 let playState = {
   create () {
     // set game background image
@@ -15,20 +17,12 @@ let playState = {
     this.cellHeight = 186
 
     this.template = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null]
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0]
     ]
 
-    this.cells = game.add.group()
-
-    for (let i = 0; i < this.template.length; i++) {
-      for (let j = 0; j < this.template.length; j++) {
-        let cell = this.cells.create(i * this.cellWidth, j * this.cellHeight, 'cell')
-        cell.inputEnabled = true
-        cell.events.onInputDown.add(this.setX, this)
-      }
-    }
+    this.playerCanSetX ? game.input.onDown.add(this.setX, this) : game.input.onDown.add(this.setO, this)
   },
   // player set X sprite
   setX () {
@@ -54,8 +48,8 @@ let playState = {
   setO () {
     this.playerCanSetX = false
 
-    var column
-    var row
+    let column
+    let row
 
     function randNum () {
       column = Math.floor(Math.random() * 3)

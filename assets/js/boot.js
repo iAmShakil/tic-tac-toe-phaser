@@ -1,5 +1,7 @@
 /* globals game, Phaser */
 
+'use strict'
+
 let bootState = {
   create () {
     if (!game.device.desktop) {

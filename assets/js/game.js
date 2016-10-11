@@ -1,5 +1,7 @@
 /* globals Phaser */
 
+'use strict'
+
 let game = new Phaser.Game(560, 560, Phaser.AUTO)
 
 game.state.add('boot', bootState)
