@@ -2,7 +2,7 @@
 
 'use strict'
 
-let game = new Phaser.Game(560, 560, Phaser.AUTO)
+const game = new Phaser.Game(560, 560, Phaser.AUTO)
 
 game.state.add('boot', bootState)
 game.state.add('load', loadState)

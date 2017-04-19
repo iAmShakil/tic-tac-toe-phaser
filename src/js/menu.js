@@ -2,19 +2,19 @@
 
 'use strict'
 
-let menuState = {
+const menuState = {
   create () {
     game.add.image(0, 0, 'background')
 
     // display game name
-    let gameName = game.add.text(
+    const gameName = game.add.text(
       game.world.centerX, 200, 'Tic Tac Toe',
       { font: '50px Arial', fill: '#ffffff' }
     )
     gameName.anchor.setTo(0.5, 0.5)
 
     // explain how to start the game
-    let startGame = game.add.text(
+    const startGame = game.add.text(
       game.world.centerX, 250, 'click to start',
       { font: '20px Arial', fill: '#ffffff' }
     )

@@ -2,7 +2,7 @@
 
 'use strict'
 
-let playState = {
+const playState = {
   create () {
     // set game background image
     game.add.sprite(0, 0, 'level-background')
@@ -27,8 +27,8 @@ let playState = {
   // player set X sprite
   setX () {
     // Figure out what position on the grid that translates to
-    let cellIndexX = Math.floor(game.input.x / this.cellWidth)
-    let cellIndexY = Math.floor(game.input.y / this.cellHeight)
+    const cellIndexX = Math.floor(game.input.x / this.cellWidth)
+    const cellIndexY = Math.floor(game.input.y / this.cellHeight)
 
     if (this.playerCanSetX && !this.template[cellIndexY][cellIndexX]) {
       this.template[cellIndexY][cellIndexX] = 'x'

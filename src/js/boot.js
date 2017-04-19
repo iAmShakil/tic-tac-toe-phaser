@@ -2,7 +2,7 @@
 
 'use strict'
 
-let bootState = {
+const bootState = {
   create () {
     if (!game.device.desktop) {
       game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL

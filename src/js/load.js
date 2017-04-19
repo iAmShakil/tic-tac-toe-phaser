@@ -2,7 +2,7 @@
 
 'use strict'
 
-let loadState = {
+const loadState = {
   preload () {
     game.load.path = 'images/'
     game.load.images(['background', 'level-background', 'x', 'o', 'cell'])
