@@ -5,7 +5,7 @@
 let playState = {
   create () {
     // set game background image
-    this.levelBackground = game.add.sprite(0, 0, 'levelBackground')
+    game.add.sprite(0, 0, 'level-background')
 
     // if x <= 5, don't call setO function
     this.x = 0
@@ -16,13 +16,13 @@ let playState = {
     this.cellWidth = 186
     this.cellHeight = 186
 
-    this.template = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0]
-    ]
+    this.template = this.get2dArray(3, 3, 0)
 
     this.playerCanSetX ? game.input.onDown.add(this.setX, this) : game.input.onDown.add(this.setO, this)
+  },
+  // where 'el' is default element which will be filled in every array
+  get2dArray (rows, columns, el) {
+    return Array(rows).fill().map(() => Array(columns).fill(el))
   },
   // player set X sprite
   setX () {
@@ -48,12 +48,13 @@ let playState = {
   setO () {
     this.playerCanSetX = false
 
-    let column
     let row
+    let column
 
+    // return template coordinates
     function randNum () {
-      column = Math.floor(Math.random() * 3)
       row = Math.floor(Math.random() * 3)
+      column = Math.floor(Math.random() * 3)
     }
 
     randNum()
